@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="websocket.js"></script>
+  <title>ODraw</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>  
+  <div id="pointers" style="width: 0px;height : 0px; overflow : visible;">
+    <div class="user-pointer nodisplay" id="mypointer">
+          <div style="
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      padding: 4px;
+      margin-right: 7px;
+      border: 1px black solid;
+
+  "></div> 
+      <span>You</span> 
+    </div>
+  </div>
+  <canvas id="canvas">
+  </canvas>
+  <div class="controls">
+    <div class="controls-section" id="">
+            <button class="controls-button selected" id="thickness-slim">
+              <div style="pointer-events: none;width: 10px;aspect-ratio: 1/1;border-radius: 50%;background-color: rgb(0, 0, 0);"></div>
+            </button>
+            <button class="controls-button" id="thickness-mid">
+              <div style="pointer-events: none;width: 15px;aspect-ratio: 1/1;border-radius: 50%;background-color: rgb(0, 0, 0);"></div>
+            </button>
+            <button class="controls-button" id="thickness-thick">
+              <div style="pointer-events: none;width: 20px;aspect-ratio: 1/1;border-radius: 50%;background-color: rgb(0, 0, 0);"></div>
+            </button>
+    </div>
+          <div style="margin: 5px;width: 2px;background-color:  rgba(0, 0, 0, 0.209);height: 90%;"></div>
+    <div class="controls-section">
+      <button class="controls-button" id="color">
+              <input type="color" id="color-input">
+      </button>
+      <button class="controls-button" id="eraser">
+        <svg id='Eraser_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+          <g transform="matrix(0.83 0 0 0.83 12 12)" >
+          <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-15, -15)" d="M 19 3.015625 C 18.117477 3.015625 17.235919 3.3500183 16.568359 4.0175781 L 4.0195312 16.568359 C 2.6844117 17.903479 2.6844117 20.098474 4.0195312 21.433594 L 8.5683594 25.982422 C 9.9032317 27.317294 12.096768 27.317294 13.431641 25.982422 L 25.982422 13.431641 C 27.317541 12.096521 27.317541 9.901526 25.982422 8.5664062 L 21.433594 4.0175781 C 20.766034 3.3500183 19.882523 3.015625 19 3.015625 z M 10.707031 12.707031 L 17.292969 19.292969 L 12.017578 24.568359 C 11.44645 25.139487 10.55355 25.139487 9.9824219 24.568359 L 5.4335938 20.019531 C 4.8627133 19.448651 4.8627133 18.553302 5.4335938 17.982422 L 10.707031 12.707031 z" stroke-linecap="round" />
+          </g>
+        </svg>
+      </button>
+      <button class="controls-button selected" id="pen">
+            <svg id='Pencil_Drawing_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+
+
+            <g transform="matrix(0.51 0 0 0.51 12 12)" >
+            <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-24.49, -23.51)" d="M 30.15625 4.0097656 C 28.745504 4.0097656 27.335246 4.5436602 26.267578 5.6113281 L 10.263672 21.615234 C 9.5239229 22.354983 9.009931 23.291538 8.7832031 24.3125 L 5.0351562 41.173828 C 4.923263146338045 41.67493284419329 5.075423581939424 42.198455017896386 5.4384842353939735 42.56151573216458 C 5.801544888848525 42.92457644643278 6.325067037064327 43.07673696972554 6.826171899999999 42.964844 L 23.6875 39.216797 C 24.708462 38.990069 25.645017 38.47803 26.384766 37.738281 L 42.390625 21.732422 C 44.524785 19.596895 44.523813 16.090118 42.388672 13.955078 L 34.044922 5.6113281 C 32.977254 4.5436602 31.566996 4.0097656 30.15625 4.0097656 z M 12.636719 23.484375 C 13.030244 23.704853 13.393277 23.967496 13.712891 24.287109 C 14.787891 25.363109 15.148328 26.697625 15.236328 27.765625 C 16.304328 27.854625 17.636891 28.212109 18.712891 29.287109 C 19.787891 30.363109 20.148328 31.697625 20.236328 32.765625 C 21.304328 32.854625 22.636891 33.212109 23.712891 34.287109 C 24.031453 34.606132 24.29487 34.971043 24.515625 35.365234 L 24.263672 35.617188 C 23.927421 35.953438 23.502147 36.18579 23.037109 36.289062 L 16.066406 37.837891 L 10.164062 31.935547 L 11.712891 24.962891 C 11.816163 24.497853 12.048514 24.072579 12.384766 23.736328 L 12.636719 23.484375 z" stroke-linecap="round" />
+            </g>
+            </svg>
+      </button>
+    </div>
+      <div style="margin: 5px;width: 2px;background-color:  rgba(0, 0, 0, 0.209);height: 90%;"></div>
+    <div class="controls-section">
+      <button class="controls-button" id="reset">
+              <svg id='Reset_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+              <g transform="matrix(0.87 0 0 0.87 12 12)" >
+              <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: evenodd; opacity: 1;" transform=" translate(-12, -11.5)" d="M 20 12 C 20 16.417969 16.417969 20 12 20 C 7.582031 20 4 16.417969 4 12 C 4 7.582031 7.582031 4 12 4 C 13.113281 4 14.167969 4.238281 15.132813 4.648438 L 12.628906 7.324219 L 20.121094 7.074219 L 19.484375 0 L 17.273438 2.359375 C 15.710938 1.5 13.914063 1 12 1 C 5.925781 1 1 5.925781 1 12 C 1 18.074219 5.925781 23 12 23 C 18.074219 23 23 18.074219 23 12 Z" stroke-linecap="round" />
+              </g>
+              </svg>
+      </button>
+            <button class="controls-button" id="download">
+            <svg id='Download_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+
+
+            <g transform="matrix(1 0 0 1 12 12)" >
+            <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -12)" d="M 11 2 C 10.448 2 10 2.448 10 3 L 10 11 L 6 11 L 12 17 L 18 11 L 14 11 L 14 3 C 14 2.448 13.552 2 13 2 L 11 2 z M 2 20 L 2 22 L 22 22 L 22 20 L 2 20 z" stroke-linecap="round" />
+            </g>
+            </svg>
+      </button>
+    </div>
+  </div> 
+<div id="eventscover"></div> 
+<div id="signupbox">
+    <div class="left">
+        <img src="signup.png" width="250px" alt="">
+    </div>
+
+    <div class="right">
+        <span class="signup-title">Join and start drawing.<br>Pick your highlight color.</span>
+
+        <div class="signup-form">
+            <span class="input-label">Username</span>
+            <div class="username-input-holder">
+                <input id="username-input" type="text" max="8" placeholder="Nate Higgers">
+            </div>
+
+            <span class="input-label">Pointer Color</span>
+
+<div class="color-selection">
+                <div class="color-circle" style="background: #f8345c;"></div>
+                <div class="color-circle" style="background: #4169e1;"></div>
+                <div class="color-circle" style="background: #05976a;"></div>
+                <div class="color-circle" style="background: #404660;"></div>
+                <div class="color-circle" style="background: #ef9aa6;"></div>
+            <div class="color-circle" style="background: #654897;"></div><div class="color-circle" style="background: #488aec;"></div><div class="color-circle" style="background: linear-gradient(45deg, #2a54e1, #7e20c69e);"></div></div>
+            
+            <span class="input-label">Your pointer will look like :</span>
+<div class="user-pointer" id="example-pointer" style="background-color: #1e90ff;animation: none;position: static; width: fit-content;">
+                    <div style="
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: white;
+            padding: 4px;
+            margin-right: 7px;
+            border: 1px black solid;
+
+            "></div> 
+            <span id="example-name">You</span>  
+    </div>
+            <button class="join-btn">
+                Join →
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
